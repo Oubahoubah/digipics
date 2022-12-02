@@ -1,92 +1,85 @@
-# Digipics
+# digipics
 
+Some scripts to handle your digital pictures
 
+Over the years you will collect a lot of memories in the pictures you have taken. You have perhaps started early with digital imaging or you have converted analog pictures by scanning them... at the end your picture collection is rather big and hard to overwatch. There are tools around, which help you in finding pictures in your collection, but they may be only on mobile or only on desktop...
 
-## Getting started
+So an idea of rather basically organizing pictures is not a bad one.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+The structure choosen here is a folder structure:
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+YYYY /
+      MM
+      MM /
+           EVENT
 
-## Add your files
+e.g.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+2001 /
+      01
+      02 /
+           Party_in_Hamburg
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/steviehs/digipics.git
-git branch -M main
-git push -uf origin main
-```
+If there is an event to mention it may reside in the month folder where it happened - if this event lasts over to months, there will be an event folder in each month.
 
-## Integrate with your tools
+The pictures are all renamed to their date stamp when they have been taken: 20010623_173401.jpg
+Right now, there was no need for two pictures taken at the same second...
 
-- [ ] [Set up project integrations](https://gitlab.com/steviehs/digipics/-/settings/integrations)
+This all does not change the _payload_ of the picture nor it's EXIF (Metadata). Pictures are only renamed and moved to their destination location.
 
-## Collaborate with your team
+All this movement and renaming is done by the script:
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+## digiimport.py
+`digiimport.py` is a short script to move your pictures - with no content changed at all, not exif not data - to a collection structured by YYYY/MM and optional event.
 
-## Test and Deploy
+### My Workflow looks like this:
 
-Use the built-in continuous integration in GitLab.
+I have on my PC a folder called "/home/steve/pictures/incoming" and my collection should be under "/home/steve/pictures/collection". Then I start in the folder incoming this script with (assume it is in your path) `digiimport.py --collection /home/steve/pictures/collection` and the magic starts. The script detects EXIF dates, Signal picture naming conventions, What's app naming conventions, android generic naming conventions and gets the date the pictures was made from that. The picture will then be renamed to YYYYMMDD_HHMMSS and moved to a folder inside your collection called YYYY/MM.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+Now you have organized all your pictures in a structure on your PC. But you want to have the possible to show your memories to your friends and browse them yourself while you are on travel and perhaps even not connected to the internet. Could this be possible although you have collected your memories over 30 years and more?
 
-***
+Yes it is, just with some help of technology.
 
-# Editing this README
+e.g. an uncompressed collection with approx 18000 pic eats up 30GB. After compressing/resizing the pics, the collection eats up 6,3GB
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+It is very important to understand, that the original pictures will not (never!) be touched!
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+So the workflow to have your whole memories on your phone tablet is:
 
-## Name
-Choose a self-explaining name for your project.
+1. convert/resize your collection (from now called phone collection)
+2. upload/sync your phone collection to your mobile device
+3. choose a fast picture viewer
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+Now for all that there are perfect tools:
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+1. resizing: see digiphone.py below
+2. syncing: use Nextcloud / LesPas (Android)
+3. Picture viewer: LesPas (Android)
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## digiphone.py
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+`digiphone.py` is my script to convert my nested folder hierarchy with my pictures to a flat folder structure and resized pictures. Only files ending with .jpg and .png are converted.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+It is designed to provide the right structure for the famous FOSS library viewer Les Pas: https://github.com/scubajeff/lespas
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+By this, I am able to sync all my pictures with my mobile phone: while the local collection eats up around 29G, the reduced sizes dir needs 6,2G... 
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+You have also the possibility to share a folder with a Nextcloud group by writing the Name of this Group in  the folder in a file called `.ncshare`
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+For installation, put the script in your bin path and put also the NextCloud.py library from https://github.com/Dosugamea/NEXT-OCS-API-forPy there.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+Start the script with: 
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+digiphone.py --collection source/path/ --phone destination/path --ncurl https://nextcloud.example.com --ncuser theuser --ncpasswd joshua42 --ncbasepath lespas
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+starting with -n would show you, what the script would do. 
+The --nc* parameters are only necessary if you want to use Nextcloud shares. 
+Perhaps try it first with just a few folders, which you copy to a test location.
 
-## License
-For open source projects, say how it is licensed.
+The easiest way to achieve that all users who use lespas get added folders automagically is to set the standard shared folder in NextCloud to 'lespas'. This can be achieved by adding:
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+'share_folder' => '/lespas',
+
+to nextclouds config.php
+
+Otherwise, the users of the group which get the shares, will have to move their shared folders also to an own lespas folder.
