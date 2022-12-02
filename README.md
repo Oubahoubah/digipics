@@ -2,7 +2,7 @@
 
 Some scripts to handle your digital pictures
 
-Over the years you will collect a lot of memories in the pictures you have taken. You have perhaps started early with digital imaging or you have converted analog pictures by scanning them... at the end your picture collection is rather big and hard to overwatch. There are tools around, which help you in finding pictures in your collection, but they may be only on mobile or only on desktop...
+Over the years you will collect a lot of memories in the pictures you have taken. You have perhaps started early with digital imaging or you have converted analog pictures by scanning them... in the end your picture collection is rather big and hard to overwatch. There are tools around, which help you to find the pictures in your collection, but they may be only on mobile or only on desktop...
 
 So an idea of rather basically organizing pictures is not a bad one.
 
