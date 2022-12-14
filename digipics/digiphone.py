@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# phonepics - convert your pics for a phone friendly file structure
+# digiphone - convert your pics for a phone friendly file structure
 # with sharing support for nextcloud
 
 # Copyright (C) 2022 skrodzki@stevekist.de
@@ -19,6 +19,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from digipics import common
 from typing import List
 import configargparse
 import os
@@ -107,7 +108,12 @@ def main():
     cfgfile = os.path.expanduser("~/.digipics.cfg")
 
     destlist: List[str] = []
-    parser = configargparse.ArgumentParser(description='Convert your pictures to a flat hierarchy with nextcloud and lespas support', default_config_files = [ cfgfile ])
+    parser = configargparse.ArgumentParser(
+        formatter_class=configargparse.RawDescriptionHelpFormatter,
+        description="Convert your pictures to a flat hierarchy with nextcloud and lespas support",
+        epilog=common.EPILOG,
+        default_config_files=[cfgfile],
+    )
 
     parser.add_argument('-n', '--nothing', help='do nothing', action='store_true')
     parser.add_argument('--collection', help='the source path of your collection', required=True)

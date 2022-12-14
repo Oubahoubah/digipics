@@ -2,3 +2,7 @@ build
 __pycache__
 digipics.egg-info
 build
+collection.test
+phone.test
+.tox
+.vscode

@@ -3,9 +3,9 @@ from setuptools import setup
 
 setup(
     name="digipics",
-    version="0.1",
+    version="0.3",
     description="Handle your digital pictures",
-    url="http://gitlab.com",
+    url="https://gitlab.com/steviehs/digipics",
     author="Stephan Skrodzki",
     author_email="skrodzki@stevekist.de",
     license="GNU Affero General Public License v3",
