@@ -196,8 +196,11 @@ def processdir(
                     if os.path.isfile(fulldestination):
                         deststats = os.stat(fulldestination)
                         destsize = deststats.st_size
-                    if destsize == srcsize:
-                        print(" allready exists and has same size. Untouched.")
+                        if destsize == srcsize:
+                            print(" allready exists and has same size. Untouched.")
+                        else:
+                            print(" allready exists and has different size. Untouched.")
+                            # at this point we should try to increase the timestamp e.g. by one second?
                     else:
                         if keep:
                             shutil.copy(srcfile, fulldestination)

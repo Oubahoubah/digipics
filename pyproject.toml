@@ -1,9 +1,9 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
 [project]
 name = "digipics"
-version = "0.0.1"
+version = "0.6"
 authors = [
   { name="Stephan Skrodzki", email="skrodzki@stevekist.de" },
 ]
@@ -16,3 +16,8 @@ classifiers = [
     "License :: OSI Approved :: GNU Affero General Public License v3",
     "Operating System :: OS Independent",
 ]
+[project.urls]
+repository = "https://gitlab.com/steviehs/digipics"
+[project.scripts]
+digiimport = "digipics.digiimport:main"
+digiphone = "digipics.digiphone:main"
