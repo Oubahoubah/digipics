@@ -149,20 +149,21 @@ def main():
     processdir("")
 
     ## now check if there are files that should be deleted
-
+    backup_path = os.path.join(destpath,"Backup")
     for (dirpath, dirnames, filenames) in os.walk(destpath):
         for f in filenames:
-            lookfile = os.path.join(dirpath, f) # this is the file we found
-            if (destlist.count(lookfile) == 0):
-                if lookfile[-4:] == "json":
-                    # print("Ignore json file (from lespas?):", lookfile)
-                    pass
-                else:
-                    if (args.nothing):
-                        print("Would delete:",lookfile)
+            if not dirpath.startswith(backup_path):
+                lookfile = os.path.join(dirpath, f) # this is the file we found
+                if (destlist.count(lookfile) == 0):
+                    if lookfile[-4:] == "json":
+                        # print("Ignore json file (from lespas?):", lookfile)
+                        pass
                     else:
-                        print("Deleting:",lookfile)
-                        os.remove(lookfile)
+                        if (args.nothing):
+                            print("Would delete:",lookfile)
+                        else:
+                            print("Deleting:",lookfile)
+                            os.remove(lookfile)
 
     print("Total pictures:",len(destlist))
 
