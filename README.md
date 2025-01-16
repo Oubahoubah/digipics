@@ -93,3 +93,31 @@ Now for all that there are perfect tools:
 2. syncing: use Nextcloud / LesPas (Android)
 3. Picture viewer: LesPas (Android)
 
+## Installation
+
+Create a virtual environment:
+```
+$ python3 -m venv ~/.venv/digipics
+```
+
+Activate it:
+```
+$ source ~/.venv/digipics/bin/activate
+```
+
+Install pipx:
+```
+$ pip3 install pipx
+```
+
+Clone the repository:
+```
+$ cd Downloads
+$ git clone https://github.com/Oubahoubah/digipics.git
+```
+
+And finally this should build the app:
+```
+$ cd digipics
+$ pipx install -e .
+```
