@@ -15,7 +15,8 @@ dependencies = [
     "configargparse",
     "exif",
     "wand",
-    "requests"
+    "requests",
+    "setuptools"
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
