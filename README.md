@@ -1,6 +1,7 @@
 # digipics
 
 Scripts to handle your digital pictures
+*This version only offers a complete dependency list to allow smooth installation process to build a container with digipics. No additional feature beside that.*
 
 ## Introduction
 
